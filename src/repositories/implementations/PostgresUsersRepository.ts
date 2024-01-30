@@ -7,7 +7,7 @@ import { IUsersRepository } from '../IUserRepository'
 import { prismaClient } from '../../infra/database/prismaClient'
 
 export class PostgresUsersRepository implements IUsersRepository {
-    async findByEmail(email: string): Promise<User | null> {
+    async exists(email: string): Promise<User | null> {
         const user = await prismaClient.user.findFirst({
             where: {
                 email
@@ -17,7 +17,7 @@ export class PostgresUsersRepository implements IUsersRepository {
         return user
     }
 
-    async save(user: User): Promise<void> {
+    async create(user: User): Promise<void> {
         const SALT_ROUNDS = Environment.SALT_ROUNDS
 
         const validator = await isValidEmail(user.email)
