@@ -12,7 +12,7 @@ export const authMiddleware = async (
         const { authorization } = request.headers
 
         if (!authorization) {
-            return response.status(401).send('No token provided')
+            return response.status(401).send()
         }
 
         const token = authorization.replace('Bearer', '').trim()
@@ -25,7 +25,7 @@ export const authMiddleware = async (
         })
 
         if (!isValidToken) {
-            return response.status(401).send('No token provided')
+            return response.status(401).send()
         }
 
         return next()

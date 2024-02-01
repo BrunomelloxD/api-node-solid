@@ -1,4 +1,4 @@
-import { IUsersRepository } from '../../repositories/IUserRepository'
+import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { ICreateUserRequestDTO } from './CreateUserDTO'
 
 export class CreateUserUseCase {

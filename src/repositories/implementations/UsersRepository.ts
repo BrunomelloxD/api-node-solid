@@ -2,11 +2,11 @@ import bcrypt from 'bcrypt'
 import { Environment } from '../../config/Environment'
 import { User } from '../../entities/User'
 import { isValidEmail } from '../../utils/isValidEmail'
-import { IUsersRepository } from '../IUserRepository'
+import { IUsersRepository } from '../IUsersRepository'
 
 import { prismaClient } from '../../infra/database/prismaClient'
 
-export class PostgresUsersRepository implements IUsersRepository {
+export class UsersRepository implements IUsersRepository {
     async exists(email: string): Promise<User | null> {
         const user = await prismaClient.user.findFirst({
             where: {
@@ -35,5 +35,15 @@ export class PostgresUsersRepository implements IUsersRepository {
                 password: HASHED_PASSWORD
             }
         })
+    }
+
+    async findByEmail(email: string): Promise<User | null> {
+        const user = await prismaClient.user.findFirst({
+            where: {
+                email: email
+            }
+        })
+
+        return user
     }
 }
